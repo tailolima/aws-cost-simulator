@@ -1,4 +1,3 @@
-```markdown
 # Simulador de Custos da AWS (Brasil)
 
 Uma ferramenta simples para estudantes brasileiros estimarem quanto custa hospedar projetos na **AWS (região sa-east-1 - São Paulo)**.
