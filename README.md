@@ -1,8 +1,9 @@
+```markdown
 # Simulador de Custos da AWS (Brasil)
 
 Uma ferramenta simples para estudantes brasileiros estimarem quanto custa hospedar projetos na **AWS (região sa-east-1 - São Paulo)**.
 
-> Focado em **S3 + CloudFront** — ideal para sites estáticos como portfólios, landing pages e projetos pessoais.
+> Focado em **S3 + CloudFront** – ideal para sites estáticos como portfólios, landing pages e projetos pessoais.
 
 ## ▶️ Como rodar
 
