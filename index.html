@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Custos da AWS (Brasil)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            color: #232F3E;
+            text-align: center;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #FF9900;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 5px;
+            display: none;
+        }
+        .tip {
+            margin-top: 15px;
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>☁️ Simulador de Custos da AWS</h1>
+    <p>Região: <strong>sa-east-1 (São Paulo, Brasil)</strong></p>
+
+    <div class="input-group">
+        <label for="storage">Tamanho do site (em GB):</label>
+        <input type="number" id="storage" step="0.1" min="0" value="0.1">
+    </div>
+
+    <div class="input-group">
+        <label for="traffic">Tráfego mensal (em GB):</label>
+        <input type="number" id="traffic" step="1" min="0" value="5">
+    </div>
+
+    <button onclick="calculateCost()">Calcular Custo</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculateCost() {
+            const storage = parseFloat(document.getElementById('storage').value) || 0;
+            const traffic = parseFloat(document.getElementById('traffic').value) || 0;
+
+            // Preços da região sa-east-1 (Brasil)
+            const storagePrice = 0.036; // USD/GB
+            const trafficPrice = 0.15;  // USD/GB
+
+            const storageCost = storage * storagePrice;
+            const trafficCost = traffic * trafficPrice;
+            const total = storageCost + trafficCost;
+
+            let tip = "";
+            if (total < 0.50) {
+                tip = "💡 Dica: Seu custo é muito baixo! Provavelmente está dentro do Free Tier.";
+            } else if (total < 5.00) {
+                tip = "💡 Dica: Custo acessível para projetos pessoais. Considere usar cache para reduzir tráfego.";
+            } else {
+                tip = "💡 Dica: Para sites com alto tráfego, avalie CDN ou otimização de imagens.";
+            }
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <h3>📊 Resultado:</h3>
+                <p>• Armazenamento (${storage.toFixed(1)} GB): US$ ${storageCost.toFixed(2)}</p>
+                <p>• Tráfego (${traffic.toFixed(1)} GB): US$ ${trafficCost.toFixed(2)}</p>
+                <p><strong>Total estimado: US$ ${total.toFixed(2)}</strong></p>
+                <p class="tip">${tip}</p>
+            `;
+            resultDiv.style.display = "block";
+        }
+
+        // Calcular ao carregar
+        calculateCost();
+    </script>
+</body>
+</html>
